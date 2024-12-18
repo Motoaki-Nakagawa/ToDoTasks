@@ -1,0 +1,304 @@
+/* ボタン用 */
+.btn-neumorphic {
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #f0f0f3;
+    color: #555;
+    border: none;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 25px;
+    box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+    transition: all 0.3s ease;
+}
+
+.btn-neumorphic:hover {
+    box-shadow: 4px 4px 8px #d1d1d1, -4px -4px 8px #ffffff;
+}
+
+.btn-neumorphic:active {
+    box-shadow: inset 4px 4px 8px #d1d1d1, inset -4px -4px 8px #ffffff;
+}
+
+/* ニックネームボタン用 */
+.btn-neumorphic-nickname {
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #ff6b6b;
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 25px;
+    box-shadow: 4px 4px 8px rgba(217, 83, 79, 0.5),
+                -4px -4px 8px rgba(255, 139, 139, 0.5); 
+    transition: all 0.3s ease;
+}
+
+.btn-neumorphic-nickname:hover {
+    box-shadow: 3px 3px 6px rgba(217, 83, 79, 0.4),
+                -3px -3px 6px rgba(255, 139, 139, -0.4);
+    background-color: #ff7d7d;
+}
+
+.btn-neumorphic-nickname:active {
+    box-shadow: inset 3px 3px 6px rgba(217, 83, 79, 0.5),
+                inset -3px -3px 6px rgba(255, 139, 139, -0.5);
+    background-color: #ff4d4d;
+}
+   
+/* 入力フォーム用 */
+.form-control-neumorphic {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    background-color: #f0f0f3;
+    color: #555;
+    box-shadow: inset 6px 6px 12px #e0e0e0, inset -8px -8px 16px #ffffff;
+    transition: all 0.3s ease;
+    text-indent: 10px;
+}
+
+.form-control-neumorphic::placeholder {
+    color: #aaa;
+}
+
+.form-control-neumorphic:focus {
+    outline: none;
+    background-color: #e8e8ec;
+    box-shadow: inset 4px 4px 8px #bdbdbd, inset -4px -4px 8px #ffffff, 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.form-control-neumorphic:disabled {
+    background-color: #e0e0e0;
+    color: #999;
+    box-shadow: none;
+}
+
+/* カード用 */
+.card-neumorphic {
+    background-color: #f0f0f3;
+    border-radius: 25px;
+    box-shadow: 12px 12px 24px #d1d1d1, -12px -12px 24px #ffffff;
+    padding: 25px;
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.card-neumorphic-large {
+    max-width: 100%;
+    width: 100%;
+    margin: auto;
+    padding: 30px;
+    background-color: #f0f0f3;
+    border-radius: 25px;
+    box-shadow: 12px 12px 24px #d1d1d1, -12px -12px 24px #ffffff;
+    transition: all 0.3s ease;
+}
+
+.card-neumorphic:hover {
+    box-shadow: 8px 8px 16px #c0c0c0, -8px -8px 16px #ffffff;
+}
+
+.card-neumorphic h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 透明なカード用 */
+.transparent-card {
+    background-color: transparent;
+    border: 2px solid rgba(200, 200, 200, 0.6); 
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.transparent-card h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* ラジオボタン用 */
+.radio-neumorphic {
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+    cursor: pointer;
+}
+
+.radio-neumorphic input[type="radio"] {
+    display: none;
+}
+
+.radio-neumorphic span {
+    display: inline-block;
+}
+
+.radio-neumorphic span:first-of-type {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #f0f0f3;
+    box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.radio-neumorphic span:first-of-type::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background-color: #555;
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.2s ease-in-out;
+}
+
+.radio-neumorphic input[type="radio"]:checked + span:first-of-type::after {
+    opacity: 1;
+}
+
+.radio-text {
+    font-size: 14px;
+    color: #555;
+}
+
+/* タスク削除ボタン用 */
+.btn-danger-neumorphic {
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #ff6b6b;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 4px 4px 8px rgba(217, 83, 79, 0.5),
+                -4px -4px 8px rgba(255, 139, 139, 0.5); 
+    transition: all 0.3s ease;
+}
+
+.btn-danger-neumorphic:hover {
+    box-shadow: 3px 3px 6px rgba(217, 83, 79, 0.4),
+                -3px -3px 6px rgba(255, 139, 139, -0.4);
+    background-color: #ff7d7d;
+}
+
+.btn-danger-neumorphic:active {
+    box-shadow: inset 3px 3px 6px rgba(217, 83, 79, 0.5),
+                inset -3px -3px 6px rgba(255, 139, 139, -0.5);
+    background-color: #ff4d4d;
+}
+
+/* ソートフォーム用 */
+.sort-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* サイドバーデザイン（PC） */
+.sidebar {
+    width: 250px;
+    top: 0;
+    left: 0;
+    z-index: 1020;
+    background-color: #f8f9fa;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+}
+
+.sidebar .logo {
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-align: center;
+    color: #333;
+}
+
+.sidebar .btn-neumorphic {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 15px 10px;
+    box-sizing: border-box;
+}
+
+/* 念のため、サイドバー分のマージンを確保 */
+main {
+    margin-left: 250px;
+}
+
+/* モバイル版ヘッダーのロゴ */
+.navbar-brand {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #333;
+    text-decoration: none;
+}
+
+/* レスポンシブ設定（モバイル） */
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    nav.navbar {
+        display: block;
+    }
+
+    main {
+        margin-left: 0; 
+    }
+
+    .btn-neumorphic {
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 20px;
+    }
+
+    .btn-neumorphic-nickname {
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 20px;
+    }
+
+    .form-control-neumorphic {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .card-neumorphic {
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    .transparent-card {
+        border-width: 1px;
+    }
+
+    .btn-danger-neumorphic {
+        padding: 4px 8px;
+        font-size: 12px;
+        border-radius: 15px;
+    }
+}

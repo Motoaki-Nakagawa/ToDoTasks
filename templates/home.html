@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- ページタイトル -->
+    <div class="row mt-4">
+        <div class="col-12 text-center mb-4">
+            <h1 class="page-title mb-4 text-center">HOME</h1>
+            <h3>ようこそ！ {{ user.nickname or user.username }}さん！</h3>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 追加フォーム -->
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+                <div class="card-neumorphic-large p-4">
+                    <h1 class="mb-4 text-center">タスク管理</h1>
+
+                    <div class="row">
+                        <!-- 新規リスト追加フォーム -->
+                        <div class="col-lg-6">
+                            <div class="transparent-card p-4 mb-4">
+                                <h2 class="mb-3 text-center">新規リスト作成</h2>
+                                <form method="POST" action="{{ url_for('home') }}" class="list-form">
+                                    {{ list_form.hidden_tag() }}
+                                    <div class="form-group mb-3">
+                                        {{ list_form.listname.label(class_="form-label") }}
+                                        {{ list_form.listname(class_="form-control-neumorphic", placeholder="30文字以下") }}
+                                    </div>
+                                    <button type="submit" name="create_list" class="btn btn-neumorphic w-50 mx-auto d-block">CREATE LIST</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- 新規タスク追加フォーム -->
+                        <div class="col-lg-6">
+                            <div class="transparent-card p-4 mb-4">
+                                <h2 class="mb-3 text-center">新規タスク追加</h2>
+                                <form method="POST" action="{{ url_for('home') }}" class="task-form">
+                                    {{ task_form.hidden_tag() }}
+                                    <div class="row mb-3">
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            {{ task_form.taskname.label(class_="form-label") }}
+                                            {{ task_form.taskname(class_="form-control-neumorphic", placeholder="50文字以下") }}
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            {{ task_form.due_date.label(class_="form-label") }}
+                                            {{ task_form.due_date(class_="form-control-neumorphic", type="date") }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            {{ task_form.priority.label(class_="form-label") }}
+                                            {{ task_form.priority(class_="form-control-neumorphic") }}
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            {{ task_form.list_id.label(class_="form-label") }}
+                                            {{ task_form.list_id(class_="form-control-neumorphic") }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button type="submit" name="add_task" class="btn btn-neumorphic w-50 mx-auto d-block">ADD TASK</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- タスクリスト -->
+    <div class="row mt-5">
+        <!-- 期日内のタスク -->
+        <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card-neumorphic-large">
+                <div class="card-body">
+                    <h2 class="card-title text-center">未完了タスク</h2>
+                    <div class="row align-items-center mb-3">
+                        <!-- リスト選択（プルダウン） -->
+                        <div class="col-11">
+                            <form method="GET" action="{{ url_for('home') }}" class="mb-3">
+                                {% if lists %}
+                                    <label for="selected_list_id">表示リスト選択：</label>
+                                    <select name="selected_list_id" id="selected_list_id" class="form-control-neumorphic" onchange="this.form.submit()">
+                                        {% for list in lists %}
+                                            <option value="{{ list.id }}" {% if selected_list_id == list.id %}selected{% endif %}>
+                                                {{ list.listname }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                {% else %}
+                                    <label for="selected_list_id" class="text-muted">リストがありません。</label>
+                                    <select name="selected_list_id" class="form-control-neumorphic" disabled>
+                                        <option>NO LIST</option>
+                                    </select>
+                                {% endif %}
+                            </form>
+                        </div>                        
+                        <!-- リスト削除ボタン -->
+                        <div class="col-1">
+                            <form method="POST" action="{{ url_for('delete_list') }}">
+                                {{ delete_form.csrf_token() }}
+                                <input type="hidden" name="list_id" value="{{ selected_list_id }}">
+                                <button type="submit" class="btn btn-danger-neumorphic">✕</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- リスト作成案内メッセージ -->
+                    {% if not lists %}
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="text-muted mt-2 text-center">新しいリストを作成してください。</p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- ソート順切り替え -->
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8 col-md-10 col-12">
+                            <form method="GET" action="{{ url_for('home') }}" class="sort-form d-flex justify-content-center align-items-center gap-3">
+                                <input type="hidden" name="selected_list_id" value="{{ selected_list_id }}">
+                                
+                                <!-- ラジオボタン -->
+                                <div class="d-flex align-items-center gap-3">
+                                    <label class="radio-neumorphic">
+                                        <input type="radio" name="sort_order" value="due_date" {% if sort_order == 'due_date' %}checked{% endif %}>
+                                        <span></span>
+                                        <span class="radio-text">期日でソート</span>
+                                    </label>
+                                    <label class="radio-neumorphic">
+                                        <input type="radio" name="sort_order" value="priority" {% if sort_order == 'priority' %}checked{% endif %}>
+                                        <span></span>
+                                        <span class="radio-text">優先度でソート</span>
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-neumorphic">APPLY</button>
+                            </form>
+                        </div>
+                    </div>
+    
+                    <ul class="list-group">
+                        {% for task in tasks %}
+                        <li class="list-group-item">
+                            <strong>{{ task.taskname }}</strong>
+                            <div class="d-flex justify-content-between mt-2">
+                                <span>{{ task.due_date }}（ {{ "!" * task.priority }} ）</span>
+                                <form method="POST" action="{{ url_for('delete_task') }}">
+                                    {{ delete_form.csrf_token() }}
+                                    <input type="hidden" name="task_id" value="{{ task.id }}">
+                                    <button type="submit" class="btn btn-danger-neumorphic">✕</button>
+                                </form>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+        <!-- 期日を過ぎて一週間以内のタスク -->
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card-neumorphic-large">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-2">7日以内の超過</h2>
+                    <ul class="list-group">
+                        {% for task in overdue_7_tasks %}
+                        <li class="list-group-item">
+                        <strong>{{ task.taskname }}</strong>
+                            <div class="d-flex justify-content-between mt-2">
+                                <span>{{ task.due_date }}</span>
+                                <form method="POST" action="{{ url_for('delete_task') }}" >
+                                    {{ delete_form.csrf_token() }}
+                                    <input type="hidden" name="task_id" value="{{ task.id }}">
+                                    <button type="submit" class="btn btn-danger-neumorphic">✕</button>
+                                </form>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+        <!-- それ以上の超過タスク -->
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card-neumorphic-large">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-2">それ以上の超過</h2>
+                    <ul class="list-group">
+                        {% for task in overdue_7_plus_tasks %}
+                        <li class="list-group-item">
+                        <strong>{{ task.taskname }}</strong>
+                            <div class="d-flex justify-content-between mt-2">
+                                <span>{{ task.due_date }}</span>
+                                <form method="POST" action="{{ url_for('delete_task') }}" class="mt-2">
+                                    {{ delete_form.csrf_token() }}
+                                    <input type="hidden" name="task_id" value="{{ task.id }}">
+                                    <button type="submit" class="btn btn-danger-neumorphic">✕</button>
+                                </form>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    
+{% endblock %}

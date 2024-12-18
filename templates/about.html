@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- ページタイトル -->
+    <h1 class="page-title text-center mb-5">ABOUT</h1>
+
+    <!-- メッセージ -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-12">
+            <div class="card-neumorphic-large">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">概要</h2>
+                    <p class="text-center">
+                        このアプリケーションは、中川元明のポートフォリオとして制作されました。<br>
+                        PythonとFlaskを使用して開発しています。
+                    </p>
+                    <h2 class="card-title text-center mt-4 mb-4">このアプリでできること</h2>
+                    <p class="text-center">
+                        毎日のタスクや少し先のタスクなどを、簡単に登録・管理できます。<br>
+                        タスクはユーザーごとに管理され、期日を超過したものは別途表示されます。<br>
+                        期日内のタスクは、期日と優先度の両方ですぐにソートできます。
+                    </p>
+                    <h2 class="card-title text-center mt-4 mb-4">制作にあたって意識したこと</h2>
+                    <p class="text-center">
+                        安全性のため、ユーザーのパスワードはすべてハッシュ化されています。<br>
+                        複数のテーブルを作成し、紐づけるよう意識しました。<br>
+                        Flask-SQLAlchemyやFlask-wtfを使用し、Flaskの機能を活かせるようにしました。<br>
+                        Bootstrapを使用してレスポンシブデザインを再現し、全体の見た目にはニューモーフィズムを採用しました。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
